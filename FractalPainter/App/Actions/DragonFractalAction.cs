@@ -7,9 +7,9 @@ namespace FractalPainting.App.Actions
 	public class DragonFractalAction : IUiAction//, INeed<IImageHolder>
 	{
 	    private readonly IDragonPainterFactory factory;
-	    private readonly Func<DragonSettings> settingsFunctory;
+	    private readonly Func<Random, DragonSettingsGenerator> settingsFunctory;
 
-	    public DragonFractalAction(IDragonPainterFactory factory, Func<DragonSettings> settingsFunctory)
+	    public DragonFractalAction(IDragonPainterFactory factory, Func<Random, DragonSettingsGenerator> settingsFunctory)
 	    {
 	        this.factory = factory;
 	        this.settingsFunctory = settingsFunctory;
@@ -26,7 +26,7 @@ namespace FractalPainting.App.Actions
 
 		public void Perform()
 		{
-			var dragonSettings = settingsFunctory();
+			var dragonSettings = settingsFunctory(new Random()).Generate();
 			//var dragonSettings = CreateRandomSettings();
 			// редактируем настройки:
 			SettingsForm.For(dragonSettings).ShowDialog();
@@ -38,9 +38,9 @@ namespace FractalPainting.App.Actions
 			//container.Get<DragonPainter>().Paint();
 		}
 
-		private static DragonSettings CreateRandomSettings()
-		{
-			return new DragonSettingsGenerator(new Random()).Generate();
-		}
+		//private static DragonSettings CreateRandomSettings()
+		//{
+		//	return se.Generate();
+		//}
 	}
 }
