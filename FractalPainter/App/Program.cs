@@ -5,6 +5,7 @@ using FractalPainting.App.Actions;
 using FractalPainting.App.Fractals;
 using FractalPainting.Infrastructure;
 using Ninject;
+using Ninject.Extensions.Factory;
 
 namespace FractalPainting.App
 {
@@ -29,6 +30,7 @@ namespace FractalPainting.App
                 container.Bind<IUiAction>().To<PaletteSettingsAction>();
                 //container.Bind<IObjectSerializer>().To<XmlObjectSerializer>();
                 //container.Bind<IBlobStorage>().To<FileBlobStorage>();
+                container.Bind<IDragonPainterFactory>().ToFactory();
                 container.Bind<IImageHolder, PictureBoxImageHolder>()
                     .To<PictureBoxImageHolder>().InSingletonScope();
                 container.Bind<Palette>().ToSelf().InSingletonScope();

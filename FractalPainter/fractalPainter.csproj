@@ -111,6 +111,7 @@
     <Compile Include="Infrastructure\SettingsForm.cs" />
     <Compile Include="Infrastructure\UiActionExtensions.cs" />
     <Compile Include="Infrastructure\XmlObjectSerializer.cs" />
+    <Compile Include="IDragonPainterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="App\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
