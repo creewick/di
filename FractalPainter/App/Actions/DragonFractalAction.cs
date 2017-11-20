@@ -7,10 +7,12 @@ namespace FractalPainting.App.Actions
 	public class DragonFractalAction : IUiAction//, INeed<IImageHolder>
 	{
 	    private readonly IDragonPainterFactory factory;
+	    private readonly Func<DragonSettings> settingsFunctory;
 
-	    public DragonFractalAction(IDragonPainterFactory factory)
+	    public DragonFractalAction(IDragonPainterFactory factory, Func<DragonSettings> settingsFunctory)
 	    {
 	        this.factory = factory;
+	        this.settingsFunctory = settingsFunctory;
 	    }
 
 		//public void SetDependency(IImageHolder dependency)
@@ -24,7 +26,8 @@ namespace FractalPainting.App.Actions
 
 		public void Perform()
 		{
-			var dragonSettings = CreateRandomSettings();
+			var dragonSettings = settingsFunctory();
+			//var dragonSettings = CreateRandomSettings();
 			// редактируем настройки:
 			SettingsForm.For(dragonSettings).ShowDialog();
 			// создаём painter с такими настройками
