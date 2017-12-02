@@ -2,20 +2,20 @@
 
 namespace FractalPainting.App.Actions
 {
-	public class ImageSettingsAction : IUiAction, INeed<IImageSettingsProvider>, INeed<IImageHolder>
+	public class ImageSettingsAction : IUiAction//, INeed<IImageSettingsProvider>, INeed<IImageHolder>
 	{
 		private IImageHolder imageHolder;
 		private IImageSettingsProvider imageSettingsProvider;
 
-		public void SetDependency(IImageHolder dependency)
-		{
-			imageHolder = dependency;
-		}
+		//public void SetDependency(IImageHolder dependency)
+		//{
+		//	imageHolder = dependency;
+		//}
 
-		public void SetDependency(IImageSettingsProvider dependency)
-		{
-			imageSettingsProvider = dependency;
-		}
+		//public void SetDependency(IImageSettingsProvider dependency)
+		//{
+		//	imageSettingsProvider = dependency;
+		//}
 
 		public string Category => "Настройки";
 		public string Name => "Изображение...";
