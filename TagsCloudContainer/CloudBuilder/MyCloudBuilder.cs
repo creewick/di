@@ -6,15 +6,17 @@ using System.Linq;
 namespace TagsCloudContainer
 {
     public class MyCloudBuilder : ICloudBuilder
-    {
+    { 
+        private IColoringAlgorithm coloringAlgorithm;
         private readonly IEnumerable<Color> colors;
         private readonly IEnumerable<string> fontNames;
         private readonly Size size;
         private readonly double step;
         private readonly double factor;
 
-        public MyCloudBuilder(IEnumerable<Color> colors, IEnumerable<string> fontNames, Size size, double step, double factor)
+        public MyCloudBuilder(IEnumerable<Color> colors, IColoringAlgorithm coloringAlgorithm, IEnumerable<string> fontNames, Size size, double step, double factor)
         {
+            this.coloringAlgorithm = coloringAlgorithm;
             this.colors = colors;
             this.fontNames = fontNames;
             this.size = size;
@@ -31,7 +33,8 @@ namespace TagsCloudContainer
             foreach (var word in frequency.Keys)
             {
                 var wordSize = g.MeasureString(word, new Font(fontName, frequency[word]));
-                layouter.PutNextWord(word, wordSize, fontName, frequency[word], fontColor);
+                layouter.PutNextWord(word, wordSize, fontName, frequency[word], 
+                    coloringAlgorithm.GetColor(colors, word, frequency[word]));
             }
             var radius = Math.Sqrt(new CircleFinder(layouter).GetSquaredCircleRadius());
             var scale = Math.Min(size.Width, size.Height) / (float)(2 * radius);

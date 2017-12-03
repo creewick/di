@@ -38,12 +38,22 @@
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,7 +64,13 @@
   <ItemGroup>
     <Compile Include="CloudBuilder\CircleFinder.cs" />
     <Compile Include="CloudBuilder\CircularCloudLayouter.cs" />
+    <Compile Include="CloudBuilder\ColoringAlgorithm\IColoringAlgorithm.cs" />
+    <Compile Include="CloudBuilder\ColoringAlgorithm\LengthColoring.cs" />
+    <Compile Include="CloudBuilder\ColoringAlgorithm\RandomColoring.cs" />
+    <Compile Include="CloudBuilder\ColoringAlgorithm\SequenceColoring.cs" />
     <Compile Include="CloudBuilder\MyCloudBuilder.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Tests\CircularCloudLayouter_Should.cs" />
     <Compile Include="Word.cs" />
     <Compile Include="CloudBuilder\ICloudBuilder.cs" />
     <Compile Include="WordsChanger\IWordsChanger.cs" />
@@ -63,13 +79,16 @@
     <Compile Include="WordsFilter\MyWordsFilter.cs" />
     <Compile Include="WordsParser\MyWordsParser.cs" />
     <Compile Include="WordsParser\IWordsParser.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ConsoleUserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagsCloudContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
