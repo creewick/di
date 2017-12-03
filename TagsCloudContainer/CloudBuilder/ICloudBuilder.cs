@@ -5,6 +5,6 @@ namespace TagsCloudContainer
 {
     public interface ICloudBuilder
     {
-        Bitmap Build(Dictionary<string, int> frequencies, IEnumerable<Color> colors, IEnumerable<string> fontNames, Size size);
+        Bitmap Build(Dictionary<string, int> frequency);
     }
 }

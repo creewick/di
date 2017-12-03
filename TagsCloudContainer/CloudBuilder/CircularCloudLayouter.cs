@@ -7,8 +7,8 @@ namespace TagsCloudContainer
 {
     class CircularCloudLayouter
     {
-        private const double Step = Math.PI / 180;
-
+        private readonly double step;
+        private readonly double factor;
         public readonly Point Center;
         private bool rearranging;
         public List<Word> Words { get; private set; }
@@ -17,8 +17,10 @@ namespace TagsCloudContainer
 
         public double SpiralArgument { get; private set; }
 
-        public CircularCloudLayouter(Point center)
+        public CircularCloudLayouter(Point center, double step, double factor)
         {
+            this.step = step * Math.PI / 180;
+            this.factor = factor;
             Center = center;
             Words = new List<Word>();
             Arguments = new List<double>();
@@ -31,14 +33,14 @@ namespace TagsCloudContainer
             RectangleF rect;
             do
             {
-                var center = ArchimedeSpiral(SpiralArgument, 0.1);
+                var center = ArchimedeSpiral(SpiralArgument, factor);
                 rect = new RectangleF(
                     center.X - wordSize.Width / 2,
                     center.Y - wordSize.Height / 2,
                     wordSize.Width,
                     wordSize.Height
                 );
-                SpiralArgument += Step;
+                SpiralArgument += step;
             } while (!IsFreeRectangle(rect));
 
             Words.Add(new Word(text, fontName, fontSize, fontColor, rect));

@@ -17,9 +17,9 @@ namespace TagsCloudContainer
             this.cloudBuilder = cloudBuilder;
         }
 
-        public void SaveAsImage(string filename, IEnumerable<Color> colors, IEnumerable<string> fontNames, Size size)
+        public void SaveAsImage(string filename)
         {
-            var image = cloudBuilder.Build(Words, colors, fontNames, size);
+            var image = cloudBuilder.Build(Words);
             image.Save(filename);
         }
 

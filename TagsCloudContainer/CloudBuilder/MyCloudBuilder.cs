@@ -7,18 +7,31 @@ namespace TagsCloudContainer
 {
     public class MyCloudBuilder : ICloudBuilder
     {
+        private readonly IEnumerable<Color> colors;
+        private readonly IEnumerable<string> fontNames;
+        private readonly Size size;
+        private readonly double step;
+        private readonly double factor;
 
-        public Bitmap Build(Dictionary<string, int> frequencies, IEnumerable<Color> colors, IEnumerable<string> fontNames, Size size)
+        public MyCloudBuilder(IEnumerable<Color> colors, IEnumerable<string> fontNames, Size size, double step, double factor)
+        {
+            this.colors = colors;
+            this.fontNames = fontNames;
+            this.size = size;
+            this.step = step;
+            this.factor = factor;
+        }
+        public Bitmap Build(Dictionary<string, int> frequency)
         {
             var image = new Bitmap(size.Width, size.Height);
             var g = Graphics.FromImage(image);
             var fontName = fontNames.FirstOrDefault();
             var fontColor = colors.FirstOrDefault();
-            var layouter = new CircularCloudLayouter(new Point(size.Width / 2, size.Height / 2));
-            foreach (var word in frequencies.Keys)
+            var layouter = new CircularCloudLayouter(new Point(size.Width / 2, size.Height / 2), step, factor);
+            foreach (var word in frequency.Keys)
             {
-                var wordSize = g.MeasureString(word, new Font(fontName, frequencies[word]));
-                layouter.PutNextWord(word, wordSize, fontName, frequencies[word], fontColor);
+                var wordSize = g.MeasureString(word, new Font(fontName, frequency[word]));
+                layouter.PutNextWord(word, wordSize, fontName, frequency[word], fontColor);
             }
             var radius = Math.Sqrt(new CircleFinder(layouter).GetSquaredCircleRadius());
             var scale = Math.Min(size.Width, size.Height) / (float)(2 * radius);
