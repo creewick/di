@@ -8,7 +8,7 @@ namespace TagsCloudContainer
 {
     public class ConsoleUserInterface
     {
-        private static Dictionary<string, IColoringAlgorithm> coloringAlgorithms = new Dictionary<string, IColoringAlgorithm>
+        private static readonly Dictionary<string, IColoringAlgorithm> coloringAlgorithms = new Dictionary<string, IColoringAlgorithm>
         {
             { "Random", new RandomColoring() },
             { "Sequence", new SequenceColoring() },

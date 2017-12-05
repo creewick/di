@@ -26,7 +26,7 @@ namespace TagsCloudContainer
 
         public TagsCloudContainer Build()
         {
-            var words = wordsParser.GetWords(inputFilename)
+            var words = wordParser.GetWords(inputFilename)
                 .Where(word => wordFilter(word))
                 .Select(word => wordTransformation(word));
             Words = GetWordsFrequency(words);
