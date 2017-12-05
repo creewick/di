@@ -4,12 +4,10 @@ using System.IO;
 
 namespace TagsCloudContainer
 {
-    public class MyWordsParser : IWordsParser
+    public class MyWordParser : IWordParser
     {
         public IEnumerable<string> GetWords(string filename)
         {
-            if (!File.Exists(filename))
-                throw new ArgumentException();
             return File.ReadAllLines(filename);
         }
     }

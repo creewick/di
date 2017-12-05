@@ -2,7 +2,7 @@
 
 namespace TagsCloudContainer
 {
-    public interface IWordsParser
+    public interface IWordParser
     {
         IEnumerable<string> GetWords(string filename); 
     }

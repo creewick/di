@@ -5,25 +5,23 @@ using System;
 
 namespace TagsCloudContainer
 {
-    public class MyWordsFilter : IWordsFilter
+    public class MyWordFilter : IWordFilter
     {
         private string[] rejectedWords; 
 
-        public MyWordsFilter(string filename)
+        public MyWordFilter(string filename)
         {
             if (filename == "")
             {
                 rejectedWords = new string[0];
                 return;
             }
-            if (!File.Exists(filename))
-                throw new ArgumentException();
             rejectedWords = File.ReadAllLines(filename);
         }
 
-        public IEnumerable<string> GetFilteredWords(IEnumerable<string> words)
+        public Predicate<string> GetFilter()
         {
-            return words.Where(w => w.Length > 3 && !rejectedWords.Contains(w));
+            return s => s.Length > 3 && !rejectedWords.Contains(s);
         }
     }
 }

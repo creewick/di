@@ -1,7 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -46,13 +45,13 @@ namespace TagsCloudContainer
             var container = new WindsorContainer();
             container.Register(Component.For<TagsCloudContainer>()
                                         .DependsOn(Dependency.OnValue<string>(input)));
-            container.Register(Component.For<IWordsParser>()
-                                        .ImplementedBy<MyWordsParser>());
-            container.Register(Component.For<IWordsFilter>()
-                                        .ImplementedBy<MyWordsFilter>()
+            container.Register(Component.For<IWordParser>()
+                                        .ImplementedBy<MyWordParser>());
+            container.Register(Component.For<IWordFilter>()
+                                        .ImplementedBy<MyWordFilter>()
                                         .DependsOn(Dependency.OnValue<string>(rejected)));
-            container.Register(Component.For<IWordsChanger>()
-                                        .ImplementedBy<MyWordsChanger>());
+            container.Register(Component.For<IWordTransformation>()
+                                        .ImplementedBy<MyWordTransformation>());
             container.Register(Component.For<ICloudBuilder>()
                 .ImplementedBy<MyCloudBuilder>()
                 .DependsOn(Dependency.OnValue("colors", colors ))
@@ -62,7 +61,7 @@ namespace TagsCloudContainer
                 .DependsOn(Dependency.OnValue("step", step))
                 .DependsOn(Dependency.OnValue("factor", factor)));
             var tagsCloudBuilder = container.Resolve<TagsCloudContainer>();
-            tagsCloudBuilder.SaveAsImage(output);
+            tagsCloudBuilder.Build().SaveAsImage(output);
         }
     }
 }
