@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TagsCloudContainer
 {
-    class LengthColoring : IColoringAlgorithm
+    public class LengthColoring : IColoringAlgorithm
     {
         public Color GetColor(IEnumerable<Color> colors, string name, int frequency)
         {

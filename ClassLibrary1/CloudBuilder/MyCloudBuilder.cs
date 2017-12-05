@@ -10,7 +10,7 @@ namespace TagsCloudContainer
         private IColoringAlgorithm coloringAlgorithm;
         private readonly IEnumerable<Color> colors;
         private readonly IEnumerable<string> fontNames;
-        private readonly Size size;
+        public readonly Size Size;
         private readonly double step;
         private readonly double factor;
 
@@ -19,16 +19,14 @@ namespace TagsCloudContainer
             this.coloringAlgorithm = coloringAlgorithm;
             this.colors = colors;
             this.fontNames = fontNames;
-            this.size = size;
+            this.Size = size;
             this.step = step;
             this.factor = factor;
         }
-        public Bitmap Build(Dictionary<string, int> frequency)
+        public void Build(Dictionary<string, int> frequency, Graphics g)
         {
-            var image = new Bitmap(size.Width, size.Height);
-            var g = Graphics.FromImage(image);
             var fontName = fontNames.FirstOrDefault();
-            var layouter = new CircularCloudLayouter(new Point(size.Width / 2, size.Height / 2), step, factor);
+            var layouter = new CircularCloudLayouter(new Point(Size.Width / 2, Size.Height / 2), step, factor);
             foreach (var word in frequency.Keys)
             {
                 var wordSize = g.MeasureString(word, new Font(fontName, frequency[word]));
@@ -36,7 +34,7 @@ namespace TagsCloudContainer
                     coloringAlgorithm.GetColor(colors, word, frequency[word]));
             }
             var radius = Math.Sqrt(new CircleFinder(layouter).GetSquaredCircleRadius());
-            var scale = Math.Min(size.Width, size.Height) / (float)(2 * radius);
+            var scale = Math.Min(Size.Width, Size.Height) / (float)(2 * radius);
 
             StringFormat format = new StringFormat();
             format.LineAlignment = StringAlignment.Center;
@@ -50,7 +48,6 @@ namespace TagsCloudContainer
                              GetCenterPoint(layouter.Center, word.Rectangle, scale),
                              format);
             }
-            return image;
         }
 
         private PointF GetCenterPoint(Point center, RectangleF rectangle, float scale)

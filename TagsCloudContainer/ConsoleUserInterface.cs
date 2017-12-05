@@ -3,6 +3,7 @@ using Castle.Windsor;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace TagsCloudContainer
 {
@@ -61,7 +62,9 @@ namespace TagsCloudContainer
                 .DependsOn(Dependency.OnValue("step", step))
                 .DependsOn(Dependency.OnValue("factor", factor)));
             var tagsCloudBuilder = container.Resolve<TagsCloudContainer>();
-            tagsCloudBuilder.Build().SaveAsImage(output);
+            var image = new Bitmap(width, height);
+            tagsCloudBuilder.Draw(Graphics.FromImage(image));
+            image.Save(output);
         }
     }
 }

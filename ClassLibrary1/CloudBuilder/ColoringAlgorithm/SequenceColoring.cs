@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TagsCloudContainer
 {
-    class SequenceColoring : IColoringAlgorithm
+    public class SequenceColoring : IColoringAlgorithm
     {
         private static int index;
 

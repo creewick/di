@@ -24,19 +24,14 @@ namespace TagsCloudContainer
             this.inputFilename = inputFilename;
         }
 
-        public TagsCloudContainer Build()
+        public TagsCloudContainer Draw(Graphics g)
         {
             var words = wordParser.GetWords(inputFilename)
                 .Where(word => wordFilter(word))
                 .Select(word => wordTransformation(word));
             Words = GetWordsFrequency(words);
+            cloudBuilder.Build(Words, g);
             return this;
-        }
-
-        public void SaveAsImage(string filename)
-        {
-            var image = cloudBuilder.Build(Words);
-            image.Save(filename);
         }
 
 
