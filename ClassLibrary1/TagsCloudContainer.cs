@@ -8,33 +8,33 @@ namespace TagsCloudContainer
     public class TagsCloudContainer
     {
         private readonly IWordParser wordParser;
-        private readonly Predicate<string> wordFilter;
+        private readonly List<Predicate<string>> wordFilters;
         private readonly Func<string, string> wordTransformation;
         public Dictionary<string, int> Words;
         private ICloudBuilder cloudBuilder;
         private readonly string inputFilename;
 
 
-        public TagsCloudContainer(IWordParser wordParser, IWordFilter wordFilter, IWordTransformation wordTransformation, ICloudBuilder cloudBuilder, string inputFilename)
+        public TagsCloudContainer(IWordParser wordParser, IWordFilter[] wordFilters, IWordTransformation wordTransformation, ICloudBuilder cloudBuilder, string inputFilename)
         {
             this.wordParser = wordParser;
-            this.wordFilter = wordFilter.GetFilter();
+            this.wordFilters = wordFilters
+                .Select(filter => filter.GetFilter())
+                .ToList();
             this.wordTransformation = wordTransformation.GetTransformation();
             this.cloudBuilder = cloudBuilder;
             this.inputFilename = inputFilename;
         }
 
-        public TagsCloudContainer Draw(Graphics g)
+        public void Draw(Graphics g)
         {
             var words = wordParser.GetWords(inputFilename)
-                .Where(word => wordFilter(word))
+                .Where(word => wordFilters.All(filter => filter(word)))
                 .Select(word => wordTransformation(word));
             Words = GetWordsFrequency(words);
             cloudBuilder.Build(Words, g);
-            return this;
         }
-
-
+        
         private static Dictionary<string, int> GetWordsFrequency(IEnumerable<string> words)
         {
             return words

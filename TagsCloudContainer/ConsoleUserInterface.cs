@@ -3,7 +3,6 @@ using Castle.Windsor;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices;
 
 namespace TagsCloudContainer
 {
@@ -44,15 +43,18 @@ namespace TagsCloudContainer
 
 
             var container = new WindsorContainer();
-            container.Register(Component.For<TagsCloudContainer>()
-                                        .DependsOn(Dependency.OnValue<string>(input)));
             container.Register(Component.For<IWordParser>()
                                         .ImplementedBy<MyWordParser>());
-            container.Register(Component.For<IWordFilter>()
-                                        .ImplementedBy<MyWordFilter>()
+            container.Register(Component.For<IRejectedWordsProvider>()
+                                        .ImplementedBy<MyRejectedWordsProvider>()
                                         .DependsOn(Dependency.OnValue<string>(rejected)));
+            container.Register(Component.For<IWordFilter>()
+                                        .ImplementedBy<MyWordFilter>());
             container.Register(Component.For<IWordTransformation>()
                                         .ImplementedBy<MyWordTransformation>());
+            container.Register(Component.For<TagsCloudContainer>()
+                            .DependsOn(Dependency.OnValue<string>(input))
+                            .DependsOn(Dependency.OnValue<IWordFilter[]>(new[] { container.Resolve<IWordFilter>() })));
             container.Register(Component.For<ICloudBuilder>()
                 .ImplementedBy<MyCloudBuilder>()
                 .DependsOn(Dependency.OnValue("colors", colors ))

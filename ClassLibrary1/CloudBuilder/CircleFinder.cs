@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace TagsCloudContainer
 {
-    class CircleFinder
+    public class CircleFinder
     {
         private readonly CircularCloudLayouter layouter;
 

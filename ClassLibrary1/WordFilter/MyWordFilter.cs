@@ -2,26 +2,22 @@
 using System.Linq;
 using System.IO;
 using System;
+using ClassLibrary1;
 
 namespace TagsCloudContainer
 {
     public class MyWordFilter : IWordFilter
     {
-        private string[] rejectedWords; 
+        private readonly IRejectedWordsProvider rejectedWordsProvider;
 
-        public MyWordFilter(string filename)
+        public MyWordFilter(IRejectedWordsProvider rejectedWordsProvider)
         {
-            if (filename == "")
-            {
-                rejectedWords = new string[0];
-                return;
-            }
-            rejectedWords = File.ReadAllLines(filename);
+            this.rejectedWordsProvider = rejectedWordsProvider;
         }
 
         public Predicate<string> GetFilter()
         {
-            return s => s.Length > 3 && !rejectedWords.Contains(s);
+            return s => s.Length > 3 && !rejectedWordsProvider.RejectedWords.Contains(s);
         }
     }
 }

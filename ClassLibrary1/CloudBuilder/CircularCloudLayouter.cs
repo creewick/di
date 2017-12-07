@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TagsCloudContainer
 {
-    class CircularCloudLayouter
+    public class CircularCloudLayouter
     {
         private readonly double step;
         private readonly double factor;
