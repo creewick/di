@@ -52,6 +52,18 @@ namespace TagsCloudContainer
         }
 
         [Test]
+        public void EmptyWordList()
+        {
+            var words = new string[0];
+            wordParser.GetWords().Returns(words);
+            wordFilter.GetFilter().Returns(s => true);
+            wordTransformation.GetTransformation().Returns(s => s);
+            var container = new TagsCloudContainer(wordParser, new[] { wordFilter }, wordTransformation, cloudBuilder);
+
+            container.GetFrequency().Should().BeEmpty();
+        }
+
+        [Test]
         public void Filter_FilteredWordList()
         {
             var words = new[] { "abc", "def" };
@@ -61,6 +73,18 @@ namespace TagsCloudContainer
             var container = new TagsCloudContainer(wordParser, new[] { wordFilter }, wordTransformation, cloudBuilder);
 
             container.GetFrequency().Keys.Should().BeEquivalentTo("abc");
+        }
+
+        [Test]
+        public void FilterWithEmptyResult()
+        {
+            var words = new[] { "abc", "def" };
+            wordParser.GetWords().Returns(words);
+            wordFilter.GetFilter().Returns(s => false);
+            wordTransformation.GetTransformation().Returns(s => s);
+            var container = new TagsCloudContainer(wordParser, new[] { wordFilter }, wordTransformation, cloudBuilder);
+
+            container.GetFrequency().Keys.Should().BeEmpty();
         }
 
         [Test]
