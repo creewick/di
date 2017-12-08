@@ -6,7 +6,14 @@ namespace TagsCloudContainer
 {
     public class MyWordParser : IWordParser
     {
-        public IEnumerable<string> GetWords(string filename)
+        private readonly string filename;
+
+        public MyWordParser(string filename)
+        {
+            this.filename = filename;
+        }
+
+        public IEnumerable<string> GetWords()
         {
             return File.ReadAllLines(filename);
         }

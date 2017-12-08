@@ -44,7 +44,8 @@ namespace TagsCloudContainer
 
             var container = new WindsorContainer();
             container.Register(Component.For<IWordParser>()
-                                        .ImplementedBy<MyWordParser>());
+                                        .ImplementedBy<MyWordParser>()
+                                        .DependsOn(Dependency.OnValue<string>(input)));
             container.Register(Component.For<IRejectedWordsProvider>()
                                         .ImplementedBy<MyRejectedWordsProvider>()
                                         .DependsOn(Dependency.OnValue<string>(rejected)));
@@ -53,7 +54,6 @@ namespace TagsCloudContainer
             container.Register(Component.For<IWordTransformation>()
                                         .ImplementedBy<MyWordTransformation>());
             container.Register(Component.For<TagsCloudContainer>()
-                            .DependsOn(Dependency.OnValue<string>(input))
                             .DependsOn(Dependency.OnValue<IWordFilter[]>(new[] { container.Resolve<IWordFilter>() })));
             container.Register(Component.For<ICloudBuilder>()
                 .ImplementedBy<MyCloudBuilder>()

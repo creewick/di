@@ -10,12 +10,10 @@ namespace TagsCloudContainer
         private readonly IWordParser wordParser;
         private readonly List<Predicate<string>> wordFilters;
         private readonly Func<string, string> wordTransformation;
-        public Dictionary<string, int> Words;
-        private ICloudBuilder cloudBuilder;
-        private readonly string inputFilename;
+        private readonly ICloudBuilder cloudBuilder;
 
 
-        public TagsCloudContainer(IWordParser wordParser, IWordFilter[] wordFilters, IWordTransformation wordTransformation, ICloudBuilder cloudBuilder, string inputFilename)
+        public TagsCloudContainer(IWordParser wordParser, IWordFilter[] wordFilters, IWordTransformation wordTransformation, ICloudBuilder cloudBuilder)
         {
             this.wordParser = wordParser;
             this.wordFilters = wordFilters
@@ -23,21 +21,18 @@ namespace TagsCloudContainer
                 .ToList();
             this.wordTransformation = wordTransformation.GetTransformation();
             this.cloudBuilder = cloudBuilder;
-            this.inputFilename = inputFilename;
         }
 
         public void Draw(Graphics g)
         {
-            var words = wordParser.GetWords(inputFilename)
-                .Where(word => wordFilters.All(filter => filter(word)))
-                .Select(word => wordTransformation(word));
-            Words = GetWordsFrequency(words);
-            cloudBuilder.Build(Words, g);
+            cloudBuilder.Build(GetFrequency(), g);
         }
-        
-        private static Dictionary<string, int> GetWordsFrequency(IEnumerable<string> words)
+
+        public Dictionary<string, int> GetFrequency()
         {
-            return words
+            return wordParser.GetWords()
+                .Where(word => wordFilters.All(filter => filter(word)))
+                .Select(word => wordTransformation(word))
                 .GroupBy(word => word, StringComparer.InvariantCultureIgnoreCase)
                 .ToDictionary(e => e.Key, e => e.Count());
         }
