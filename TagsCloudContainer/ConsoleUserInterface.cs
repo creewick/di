@@ -44,19 +44,20 @@ namespace TagsCloudContainer
 
             var container = new WindsorContainer();
             container.Register(Component.For<IWordParser>()
-                                        .ImplementedBy<MyWordParser>()
+                                        .ImplementedBy<WordParser>()
                                         .DependsOn(Dependency.OnValue<string>(input)));
             container.Register(Component.For<IRejectedWordsProvider>()
-                                        .ImplementedBy<MyRejectedWordsProvider>()
+                                        .ImplementedBy<RejectedWordsProvider>()
                                         .DependsOn(Dependency.OnValue<string>(rejected)));
             container.Register(Component.For<IWordFilter>()
-                                        .ImplementedBy<MyWordFilter>());
+                                        .ImplementedBy<WordFilter>());
             container.Register(Component.For<IWordTransformation>()
-                                        .ImplementedBy<MyWordTransformation>());
+                                        .ImplementedBy<WordTransformation>());
             container.Register(Component.For<TagsCloudContainer>()
-                            .DependsOn(Dependency.OnValue<IWordFilter[]>(new[] { container.Resolve<IWordFilter>() })));
+                            .DependsOn(Dependency.OnValue<IWordFilter[]>(new[] { container.Resolve<IWordFilter>() }))
+                            .DependsOn(Dependency.OnValue<IWordTransformation[]>(new[] { container.Resolve<IWordTransformation>() })));
             container.Register(Component.For<ICloudBuilder>()
-                .ImplementedBy<MyCloudBuilder>()
+                .ImplementedBy<CloudBuilder>()
                 .DependsOn(Dependency.OnValue("colors", colors ))
                 .DependsOn(Dependency.OnValue<IColoringAlgorithm>(algorithm))
                 .DependsOn(Dependency.OnValue("fontNames", new[] { font }))

@@ -5,11 +5,11 @@ using System;
 
 namespace TagsCloudContainer
 {
-    public class MyWordFilter : IWordFilter
+    public class WordFilter : IWordFilter
     {
         private readonly IRejectedWordsProvider rejectedWordsProvider;
 
-        public MyWordFilter(IRejectedWordsProvider rejectedWordsProvider)
+        public WordFilter(IRejectedWordsProvider rejectedWordsProvider)
         {
             this.rejectedWordsProvider = rejectedWordsProvider;
         }

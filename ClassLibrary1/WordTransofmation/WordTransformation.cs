@@ -2,7 +2,7 @@
 
 namespace TagsCloudContainer
 {
-    public class MyWordTransformation : IWordTransformation
+    public class WordTransformation : IWordTransformation
     {
         public Func<string, string> GetTransformation()
         {

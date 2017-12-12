@@ -4,11 +4,11 @@ using System.IO;
 
 namespace TagsCloudContainer
 {
-    public class MyWordParser : IWordParser
+    public class WordParser : IWordParser
     {
         private readonly string filename;
 
-        public MyWordParser(string filename)
+        public WordParser(string filename)
         {
             this.filename = filename;
         }

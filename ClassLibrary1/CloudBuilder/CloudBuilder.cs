@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TagsCloudContainer
 {
-    public class MyCloudBuilder : ICloudBuilder
+    public class CloudBuilder : ICloudBuilder
     { 
         private IColoringAlgorithm coloringAlgorithm;
         private readonly IEnumerable<Color> colors;
@@ -14,7 +14,7 @@ namespace TagsCloudContainer
         private readonly double step;
         private readonly double factor;
 
-        public MyCloudBuilder(IEnumerable<Color> colors, IColoringAlgorithm coloringAlgorithm, IEnumerable<string> fontNames, Size size, double step, double factor)
+        public CloudBuilder(IEnumerable<Color> colors, IColoringAlgorithm coloringAlgorithm, IEnumerable<string> fontNames, Size size, double step, double factor)
         {
             this.coloringAlgorithm = coloringAlgorithm;
             this.colors = colors;
