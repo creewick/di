@@ -7,8 +7,8 @@
     <ProjectGuid>{52F1C1E4-0306-4CFB-9589-55BC3EE3F0F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>TagsCloudContainerLibrary</RootNamespace>
+    <AssemblyName>TagsCloudContainerLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalPainter", "FractalPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagsCloudContainer", "TagsCloudContainer\TagsCloudContainer.csproj", "{DBAC0D52-43F7-4F3A-BFA5-C0672A3B2544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagsCloudContainerLibrary", "ClassLibrary1\TagsCloudContainerLibrary.csproj", "{52F1C1E4-0306-4CFB-9589-55BC3EE3F0F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagsCloudContainerLibrary", "TagsCloudContainerLibrary\TagsCloudContainerLibrary.csproj", "{52F1C1E4-0306-4CFB-9589-55BC3EE3F0F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
